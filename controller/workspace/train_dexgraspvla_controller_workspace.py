@@ -290,7 +290,7 @@ class TrainDexGraspVLAControllerWorkspace(BaseWorkspace):
                             output_path = os.path.join(train_sample_attn_maps_dir, f'{self.epoch}.pkl')
                         else:
                             output_path = None
-                        pred_action = policy.predict_action(batch['obs'], output_path)['action_pred']
+                        pred_action = policy.predict_action(batch['obs'], output_path)
                         log_action_mse(step_log, 'train', pred_action, gt_action)
 
                         if len(val_dataloader) > 0:
@@ -303,7 +303,7 @@ class TrainDexGraspVLAControllerWorkspace(BaseWorkspace):
                                 output_path = os.path.join(val_sample_attn_maps_dir, f'{self.epoch}.pkl')
                             else:
                                 output_path = None
-                            pred_action = policy.predict_action(batch['obs'], output_path)['action_pred']
+                            pred_action = policy.predict_action(batch['obs'], output_path)
                             log_action_mse(step_log, 'val', pred_action, gt_action)
 
                         del batch

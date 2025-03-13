@@ -74,21 +74,15 @@ class DexGraspVLAController(BaseImagePolicy):
         self.num_inference_steps = num_inference_steps
     
     # ========= inference  ============
-    def conditional_sample(self, 
-            condition_data, condition_mask,
-            cond=None, generator=None,
-            gen_attn_map=True,
-            # keyword arguments to scheduler.step
-            **kwargs
-            ):
+    def conditional_sample(self, cond=None, gen_attn_map=True, **kwargs):
         model = self.model
         scheduler = self.noise_scheduler
+        B = cond.shape[0]
 
         trajectory = torch.randn(
-            size=condition_data.shape, 
-            dtype=condition_data.dtype,
-            device=condition_data.device,
-            generator=generator)
+            size=(B, self.action_horizon, self.action_dim), 
+            dtype=self.dtype,
+            device=self.device)
     
         # set step values
         scheduler.set_timesteps(self.num_inference_steps)
@@ -97,29 +91,22 @@ class DexGraspVLAController(BaseImagePolicy):
         all_timestep_attention_maps = {}
 
         for t in scheduler.timesteps:
-            # 1. apply conditioning
-            trajectory[condition_mask] = condition_data[condition_mask]
-
-            # 2. predict model output
+            # 1. predict model output
             model_output, attention_maps = model(trajectory, t, cond, training=False, gen_attn_map=gen_attn_map)
             all_timestep_attention_maps[t.cpu().item()] = attention_maps
 
-            # 3. compute previous image: x_t -> x_t-1
+            # 2. compute previous image: x_t -> x_t-1
             trajectory = scheduler.step(
-                model_output, t, trajectory, 
-                generator=generator,
+                model_output, t, trajectory,
                 **kwargs
                 ).prev_sample
-        
-        # finally make sure conditioning is enforced
-        trajectory[condition_mask] = condition_data[condition_mask]        
 
         return trajectory, all_timestep_attention_maps
 
     def predict_action(self, obs_dict: Dict[str, torch.Tensor], output_path: str = None) -> Dict[str, torch.Tensor]:
         """
         obs_dict: must include "obs" key
-        result: must include "action" key
+        action_pred: predicted action
         """
         assert 'past_action' not in obs_dict # not implemented yet
         # normalize input
@@ -131,14 +118,8 @@ class DexGraspVLAController(BaseImagePolicy):
         obs_tokens = self.obs_encoder(nobs, training=False)
         # (B, N, n_emb)
         
-        # empty data for action
-        cond_data = torch.zeros(size=(B, self.action_horizon, self.action_dim), device=self.device, dtype=self.dtype)
-        cond_mask = torch.zeros_like(cond_data, dtype=torch.bool)
-        
         # run sampling
         nsample, all_timestep_attention_maps = self.conditional_sample(
-            condition_data=cond_data, 
-            condition_mask=cond_mask,
             cond=obs_tokens,
             gen_attn_map=True if output_path is not None else False,
             **self.kwargs)
@@ -165,11 +146,7 @@ class DexGraspVLAController(BaseImagePolicy):
             with open(output_path, 'wb') as f:
                 pickle.dump(save_dict, f)
 
-        result = {
-            'action': action_pred,
-            'action_pred': action_pred
-        }
-        return result
+        return action_pred
 
     # ========= training  ============
     def set_normalizer(self, normalizer: LinearNormalizer):
