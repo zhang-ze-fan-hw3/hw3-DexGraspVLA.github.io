@@ -26,13 +26,17 @@ class ObsEncoder(ModuleAttrMixin):
             self.dino_head = torch.hub.load(
                 "facebookresearch/dinov2",
                 model_config['head']['model_type'],
-                pretrained=True
+                pretrained=True,
+                force_reload=False,
+                trust_repo=True
             )
         else:
             self.dino_head = torch.hub.load(
                 "facebookresearch/dinov2",
                 model_config['head']['model_type'],
-                pretrained=False
+                pretrained=False,
+                force_reload=False,
+                trust_repo=True
             )
             self.dino_head.load_state_dict(torch.load(model_config['head']['local_weights_path']))
 
@@ -42,13 +46,17 @@ class ObsEncoder(ModuleAttrMixin):
             self.dino_wrist = torch.hub.load(
                 "facebookresearch/dinov2",
                 model_config['wrist']['model_type'],
-                pretrained=True
+                pretrained=True,
+                force_reload=False,
+                trust_repo=True
             )
         else:
             self.dino_wrist = torch.hub.load(
                 "facebookresearch/dinov2",
                 model_config['wrist']['model_type'],
-                pretrained=False
+                pretrained=False,
+                force_reload=False,
+                trust_repo=True
             )
             self.dino_wrist.load_state_dict(torch.load(model_config['wrist']['local_weights_path']))
 

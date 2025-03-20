@@ -51,7 +51,7 @@ class TrainDexGraspVLAControllerWorkspace(BaseWorkspace):
         self.ema_model: DexGraspVLAController = None
         if cfg.training.use_ema:
             self.ema_model = copy.deepcopy(self.model)
-        
+
         # do not save optimizer if resume=False
         if not cfg.training.resume:
             self.exclude_keys = ['optimizer']
