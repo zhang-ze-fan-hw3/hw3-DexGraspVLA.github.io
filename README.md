@@ -60,6 +60,8 @@ To train the DexGraspVLA controller on 8 GPUs, first configure [accelerate](http
 accelerate launch --num_processes=8 train.py --config-name train_dexgraspvla_controller_workspace
 ```
 
+Users can also start from an existing checkpoint by specifying `policy.start_ckpt_path` in `controller/config/train_dexgraspvla_controller_workspace.yaml`. To support application and fine-tuning, we provide an open-source, high-performing model checkpoint ([dexgraspvla-controller-20250320](https://drive.google.com/file/d/1ge1FYD2wUqBnFewWzpsjQ5v6pEDBraOH/view?usp=sharing)), which has been deployed and evaluated across five zero-shot locations at the time of release, demonstrating strong generalization capabilities. Additionally, other training settings can also be customized by modifying the configuration files in the `controller/config` folder.
+
 To help understand the internal model behaviors, we provide the functionality to generate, save, and visualize the attention maps of the controller. To enable this, please set `gen_attn_map` to `True` in the config file before training. During each sampling step, the attention maps will be saved as pickle files in the `train_sample_attn_maps` folder under the experiment directory. To visualize them, please run `python attention_map_visualizer.py --attn_maps_dir <path to train_sample_attn_maps>`. This will generate the images of attention maps under newly-created folders inside `train_sample_attn_maps` with the same names as the corresponding pickle files.
 
 
@@ -82,6 +84,71 @@ planner = DexGraspVLAPlanner(
     base_url="your_deployed_model_url"
 )
 ```
+
+For deployment, we utilize an 8-A800 GPU server to host the Qwen2.5-VL-72B-Instruct model. The deployment is managed using vllm version 0.7.3, leveraging the Qwen2.5-VL-7B-Instruct model for speculative decoding. The deployment process utilizes four GPUs.
+
+The following command is used to deploy the model:
+
+```bash
+python -m vllm.entrypoints.openai.api_server --host 0.0.0.0 --port 8001 \
+ --model <path to Qwen2.5-VL-72B-Instruct> --seed 42 -tp 1 \
+ --speculative_model <path to Qwen2.5-VL-7B-Instruct> --num_speculative_tokens 5 \
+ --gpu_memory_utilization 0.9 --tensor-parallel-size 4
+```
+
+
+
+# DexGraspVLA Inference
+
+The hardware platform we use for dexterous grasping is shown in the following figure.
+
+<div align="center"> <img src="./assets/hardware.jpg" width="400px" height="auto"/> </div>
+
+Due to intellectual property constraints, we are unable to open-source the hardware-related code. However, we have released the rest of the code for reference, and below, we provide instructions on how to run DexGraspVLA on this platform.
+
+## Installation
+
+First, install the required dependencies:
+
+```
+pip install pymodbus==2.5.3 pyrealsense2==2.55.1.6486
+```
+
+## Configuration
+
+### 1. Hardware Setup:
+Configure the hardware settings in `inference_utils/config.yaml`.
+
+### 2. Controller Checkpoint:
+Specify the trained controller model checkpoint in `controller/config/train_dexgraspvla_controller_workspace.yaml`.
+Alternatively, users can use our pre-trained checkpoint for quick deployment:
+[dexgraspvla-controller-20250320](https://drive.google.com/file/d/1ge1FYD2wUqBnFewWzpsjQ5v6pEDBraOH/view?usp=sharing).
+
+## Customizing the Inference Command
+Modify `inference.sh` by adjusting the following arguments based on users' needs:
+
+- `--manual`: Enables manual mode, allowing users to manually mark the bounding box, monitor the grasping process, and reset when necessary. If omitted, the full DexGraspVLA planner is used, leveraging a vision-language model (VLM) to plan and monitor the grasping trajectory autonomously.
+- `--save_deployment_data`: Saves rollout data from the inference episodes, including raw data and recorded videos.
+- `--gen_attn_map`: Generates and saves attention maps from the controller.
+
+## Running the Inference
+Once everything is set up, start the inference process with the following command:
+
+```bash
+./inference.sh
+```
+
+This command executes the configured grasping pipeline on the specified hardware platform.
+
+During execution, detailed logs are generated and stored in the `logs` directory. These logs include:
+
+- **Pipeline status** – real-time updates on the grasping process
+- **Camera images** – captured frames from the execution
+- **Planner prompts & responses** – inputs and outputs from the vision-language model (VLM)
+- **Optional data** – attention maps and rollout data, if enabled
+
+Example logs can be downloaded here.
+
 
 # Citation
 
