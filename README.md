@@ -46,6 +46,26 @@ Download the dataset and put it in the `data` folder. Then, decompress the datas
 [data]$ tar -zxvf grasp_demo_example.tar.gz && rm -rf grasp_demo_example.tar.gz
 ```
 
+After decompression, you'll find the dataset organized in [Zarr format](https://zarr.readthedocs.io/en/stable/) with the following groups:
+
+### Dataset Structure
+
+#### `data` Group
+- **action**: (K, 13) 
+  - Contains action data of right robotic arm and hand at each timestep, represented by 13 degrees of freedom (DoFs).
+- **right_state**: (K, 13)
+  - Contains state data of the right robotic arm and hand at each timestep, represented by 13 DoFs.
+- **rgbm**: (K, H, W, 4)
+  - Third-view images from the head camera with 4 channels, where the first 3 channels are RGB and the 4th channel is a binary mask.
+- **right_cam_img**: (K, H, W, 3)
+  - First-view images from the wrist camera with 3 RGB channels.
+
+#### `meta` Group
+- **episode_ends**: (J,)
+  - Marks the ending indices of each demonstration episode, used to segment different demonstration sequences.
+
+Here, K represents the total number of samples and J denotes the number of demonstration episodes. 
+
 ## Launch Training
 
 To train the DexGraspVLA controller on a single GPU, run
