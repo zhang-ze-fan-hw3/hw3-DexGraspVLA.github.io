@@ -70,20 +70,15 @@ Planner 的核心是将用户的指令转化为机器人可执行的明确目标
 
 <div align="center" style="display: flex; justify-content: center">
   <figure>
-    <img src="./assets/object-detection.jpg">
-    <br>
+    <img src="./assets/object-detection.jpg" style="margin-bottom: 10px;">
     <figcaption>Planner 利用 VLM 将语言指令 (如 "the black Coca Cola") 定位到图像中的具体物体，并生成边界框。</figcaption>
   </figure>
-  <br>
   <figure>
-    <img src="./assets/planner1.jpg">
-    <br>
+    <img src="./assets/planner1.jpg" style="margin-bottom: 10px;">
     <figcaption>Planner 判断用户指令类型，并进行相应的处理流程。</figcaption>
   </figure>
-  <br>
   <figure>
-    <img src="./assets/planner2.jpg">
-    <br>
+    <img src="./assets/planner2.jpg" style="margin-bottom: 10px;">
     <figcaption>Planner 根据指令和场景信息，生成抓取计划或进行状态检查。</figcaption>
   </figure>
 </div>
