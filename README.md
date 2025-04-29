@@ -49,7 +49,7 @@ DexGraspVLA 采用**分层架构**，有效结合了大型基础模型的理解�
 1.  **高层任务规划器 (Planner)**: 利用预训练的**视觉语言大模型 (VLM)**（Qwen-VL-chat-72B），负责理解用户输入的自然语言指令，结合视觉场景信息，进行任务分解和目标物体的**视觉定位 (Grounding)**，输出目标物体的边界框 (Bounding Box)。
 2.  **底层动作控制器 (Controller)**: 基于**扩散模型 (Diffusion Policy)**，学习从**多视角视觉特征** (头部相机和腕部相机) 和**本体感受信息**到**灵巧手动作**的映射。它接收 Planner 提供的目标信息，并生成平滑、精确的闭环抓取动作序列。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/method.jpg">
     <br>
@@ -68,7 +68,7 @@ Planner 的核心是将用户的指令转化为机器人可执行的明确目标
     *   **抓取顺序规划与监控**: Planner 会根据机械臂位置、物体可达性、潜在碰撞等因素规划最优抓取顺序，并在执行过程中持续监控抓取状态，进行必要的调整或反馈。
 *   **输出**: 按顺序排列的目标物体边界框列表。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/object-detection.jpg">
     <br>
@@ -100,7 +100,7 @@ Controller 负责将 Planner 的规划转化为实际的物理动作。
     *   **动作生成**: 基于 Diffusion Transformer (DiT) 结构，预测未来一段时间的动作序列 (手臂关节 + 手指关节)。采用 Receding Horizon 控制策略，逐步执行并重新规划，提高实时性和鲁棒性。
 *   **输出**: 驱动灵巧手和机械臂执行抓取的动作指令。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/symbol-dimension.jpg">
     <br>
@@ -118,13 +118,14 @@ Controller 负责将 Planner 的规划转化为实际的物理动作。
 *   **灵巧手**: 6自由度 PsiBot GO-R
 *   **视觉系统**: RealSense D435 (头部相机) + RealSense D405C (腕部相机)
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/hardware.jpg">
     <br>
     <figcaption>DexGraspVLA 使用的硬件平台示意图。</figcaption>
   </figure>
 </div>
+
 ---
 
 # 📊 实验结果 (Experiments & Results)
@@ -139,7 +140,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 *   **二次尝试成功率 (Ours@2)**: 达到 **94.7%**。
 *   **三次尝试成功率 (Ours@3)**: 高达 **96.9%**。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/sheet-generalization.jpg">
     <br>
@@ -156,7 +157,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 
 在包含已知和未知物体的零样本场景中，DexGraspVLA (Ours@1) 相比于自制的基线方法取得了显著提升，尤其是在处理未见过的物体时。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/sheet-zero-shot.jpg">
     <br>
@@ -173,7 +174,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 
 即使在背景或光照存在干扰的情况下，Planner 也能准确预测目标边界框，Controller 的注意力机制能够始终聚焦于目标物体。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/bounding-box.jpg">
     <br>
@@ -185,7 +186,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 
 进一步的评估覆盖了更广泛、更贴近现实的未见环境组合，结果再次验证了 DexGraspVLA 的高成功率和强泛化能力。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/sheet-unseen-generalization.jpg">
     <br>
