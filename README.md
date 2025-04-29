@@ -11,6 +11,7 @@ DexGraspVLA 是一个创新的**分层式视觉-语言-动作 (Vision-Language-A
 <div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/teaser.jpg">
+    <br>
     <figcaption>DexGraspVLA 在超过1200种未见过的物体、光照和背景组合下展现出超过90%的抓取成功率。</figcaption>
   </figure>
 </div>
@@ -34,6 +35,7 @@ DexGraspVLA 旨在克服这些挑战，提出一个具备以下特点的系统�
 <div align="center" style="display: flex; justify-content: center">
   <figure>
     <img src="./assets/unseen-objects-lightings-background.jpg">
+    <br>
     <figcaption>DexGraspVLA 需要应对未见过的物体、光照和背景组合。</figcaption>
   </figure>
 </div>
@@ -50,6 +52,7 @@ DexGraspVLA 采用**分层架构**，有效结合了大型基础模型的理解�
 <div align="center">
   <figure>
     <img src="./assets/method.jpg">
+    <br>
     <figcaption>DexGraspVLA 的分层框架：Planner 进行理解和规划，Controller 生成具体动作。</figcaption>
   </figure>
 </div>
@@ -68,14 +71,17 @@ Planner 的核心是将用户的指令转化为机器人可执行的明确目标
 <div align="center">
   <figure>
     <img src="./assets/object-detection.jpg">
+    <br>
     <figcaption>Planner 利用 VLM 将语言指令 (如 "the black Coca Cola") 定位到图像中的具体物体，并生成边界框。</figcaption>
   </figure>
   <figure>
     <img src="./assets/planner1.jpg">
+    <br>
     <figcaption>Planner 判断用户指令类型，并进行相应的处理流程。</figcaption>
   </figure>
   <figure>
     <img src="./assets/planner2.jpg">
+    <br>
     <figcaption>Planner 根据指令和场景信息，生成抓取计划或进行状态检查。</figcaption>
   </figure>
 </div>
@@ -97,6 +103,7 @@ Controller 负责将 Planner 的规划转化为实际的物理动作。
 <div align="center">
   <figure>
     <img src="./assets/symbol-dimension.jpg">
+    <br>
     <figcaption>控制器使用的主要符号及其维度说明。</figcaption>
   </figure>
 </div>
@@ -114,6 +121,7 @@ Controller 负责将 Planner 的规划转化为实际的物理动作。
 <div align="center">
   <figure>
     <img src="./assets/hardware.jpg">
+    <br>
     <figcaption>DexGraspVLA 使用的硬件平台示意图。</figcaption>
   </figure>
 </div>
@@ -134,10 +142,12 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 <div align="center">
   <figure>
     <img src="./assets/sheet-generalization.jpg">
+    <br>
     <figcaption>在未见过的物体、背景、光照组合下的泛化性能。</figcaption>
   </figure>
   <figure>
     <img src="./assets/picture-generalization.jpg">
+    <br>
     <figcaption>泛化能力测试中的物体多样性（形状、粗糙度）可视化。</figcaption>
   </figure>
 </div>
@@ -149,10 +159,12 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 <div align="center">
   <figure>
     <img src="./assets/sheet-zero-shot.jpg">
+    <br>
     <figcaption>零样本抓取任务中的成功率对比。</figcaption>
   </figure>
   <figure>
     <img src="./assets/picture-zero-shot.jpg">
+    <br>
     <figcaption>零样本抓取任务中的成功率柱状图对比。</figcaption>
   </figure>
 </div>
@@ -164,6 +176,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 <div align="center">
   <figure>
     <img src="./assets/bounding-box.jpg">
+    <br>
     <figcaption>在不同干扰条件下，边界框预测和注意力热图保持稳定和准确。</figcaption>
   </figure>
 </div>
@@ -175,10 +188,12 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
 <div align="center">
   <figure>
     <img src="./assets/sheet-unseen-generalization.jpg">
+    <br>
     <figcaption>在 1287 种大规模组合测试场景下的详细成功率。</figcaption>
   </figure>
   <figure>
     <img src="./assets/unseen-objects-lightings-background.jpg">
+    <br>
     <figcaption>大规模未见环境评估中使用的部分场景示例。</figcaption>
   </figure>
 </div>
