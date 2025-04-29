@@ -11,6 +11,7 @@ DexGraspVLA 是一个创新的**分层式视觉-语言-动作 (Vision-Language-A
 <div align="center">
   <figure>
     <img src="./assets/teaser.jpg">
+
     <figcaption>DexGraspVLA 在超过1200种未见过的物体、光照和背景组合下展现出超过90%的抓取成功率。</figcaption>
   </figure>
 </div>
@@ -34,6 +35,7 @@ DexGraspVLA 旨在克服这些挑战，提出一个具备以下特点的系统�
 <div align="center">
   <figure>
     <img src="./assets/unseen-objects-lightings-background.jpg">
+    
     <figcaption>DexGraspVLA 需要应对未见过的物体、光照和背景组合。</figcaption>
   </figure>
 </div>
