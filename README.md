@@ -74,11 +74,13 @@ Planner 的核心是将用户的指令转化为机器人可执行的明确目标
     <br>
     <figcaption>Planner 利用 VLM 将语言指令 (如 "the black Coca Cola") 定位到图像中的具体物体，并生成边界框。</figcaption>
   </figure>
+  <br>
   <figure>
     <img src="./assets/planner1.jpg">
     <br>
     <figcaption>Planner 判断用户指令类型，并进行相应的处理流程。</figcaption>
   </figure>
+  <br>
   <figure>
     <img src="./assets/planner2.jpg">
     <br>
@@ -146,6 +148,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
     <br>
     <figcaption>在未见过的物体、背景、光照组合下的泛化性能。</figcaption>
   </figure>
+  <br>
   <figure>
     <img src="./assets/picture-generalization.jpg">
     <br>
@@ -163,6 +166,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
     <br>
     <figcaption>零样本抓取任务中的成功率对比。</figcaption>
   </figure>
+  <br>
   <figure>
     <img src="./assets/picture-zero-shot.jpg">
     <br>
@@ -192,6 +196,7 @@ DexGraspVLA 在多种具有挑战性的场景下进行了广泛评估，展现�
     <br>
     <figcaption>在 1287 种大规模组合测试场景下的详细成功率。</figcaption>
   </figure>
+  <br>
   <figure>
     <img src="./assets/unseen-objects-lightings-background.jpg">
     <br>
