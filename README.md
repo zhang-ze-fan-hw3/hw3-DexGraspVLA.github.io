@@ -8,9 +8,9 @@
 
 DexGraspVLA 是一个创新的**分层式视觉-语言-动作 (Vision-Language-Action, VLA) 框架**，致力于解决机器人**通用灵巧抓取**的难题。它能够在包含数千种**未见过**的物体、光照和背景组合的复杂真实世界环境中，实现**超过 90%** 的灵巧抓取成功率，尤其擅长处理**杂乱场景**和理解**复杂的自然语言指令**。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
-    <img src="./assets/teaser.jpg" width="100%">
+    <img src="./assets/teaser.jpg">
     <figcaption>DexGraspVLA 在超过1200种未见过的物体、光照和背景组合下展现出超过90%的抓取成功率。</figcaption>
   </figure>
 </div>
@@ -31,9 +31,9 @@ DexGraspVLA 旨在克服这些挑战，提出一个具备以下特点的系统�
 2.  **复杂的语言理解与推理**: 能够理解并执行如“清理桌面”等长时序、多步骤的指令。
 3.  **模块化与可扩展性**: 采用分层设计，易于训练、调试和功能扩展。
 
-<div align="center">
+<div align="center" style="display: flex; justify-content: center">
   <figure>
-    <img src="./assets/unseen-objects-lightings-background.jpg" width="100%">
+    <img src="./assets/unseen-objects-lightings-background.jpg">
     <figcaption>DexGraspVLA 需要应对未见过的物体、光照和背景组合。</figcaption>
   </figure>
 </div>
